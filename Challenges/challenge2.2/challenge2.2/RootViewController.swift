@@ -9,8 +9,11 @@ import UIKit
 
 class RootViewController: UIViewController {
 
-    let greenViewPadding: CGFloat = 50.0
-    let redViewPadding: CGFloat = 25.0
+    private enum ViewMetrics {
+        static let externalPadding: CGFloat = 50.0
+        static let internalPadding: CGFloat = 25.0
+        static let redViewHeight: CGFloat = 100.0
+    }
 
     private let greenView: UIView = {
         let view = UIView()
@@ -34,16 +37,24 @@ class RootViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
 
+        let containerHeight = view.bounds.height
+        let containerWidth = view.bounds.width
+
+        let greenViewWidth = containerWidth - ViewMetrics.externalPadding * 2
+        let greenViewHeight = containerHeight - ViewMetrics.externalPadding * 2
         greenView.frame = .init(
-            x: 50.0,
-            y: 50.0,
-            width: view.bounds.width - 100,
-            height: view.bounds.height - 100)
+            x: ViewMetrics.externalPadding,
+            y: ViewMetrics.externalPadding,
+            width: greenViewWidth,
+            height: greenViewHeight)
+
+        let redY = (greenViewHeight - ViewMetrics.redViewHeight) / 2
+        let redViewWidth = greenViewWidth - ViewMetrics.internalPadding * 2
         redView.frame = .init(
-            x: 25.0,
-            y: greenView.bounds.midY - greenViewPadding,
-            width: greenView.bounds.width - 50,
-            height: 100.0)
+            x: ViewMetrics.internalPadding,
+            y: redY,
+            width: redViewWidth,
+            height: ViewMetrics.redViewHeight)
     }
 }
 
