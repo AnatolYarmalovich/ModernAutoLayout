@@ -33,7 +33,7 @@ class RootViewController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+
         greenView.frame = .init(
             x: 50.0,
             y: 50.0,
